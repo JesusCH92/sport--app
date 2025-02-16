@@ -1,7 +1,16 @@
 <!-- View/base.php -->
 <?php
+
+use App\Player\Infrastructure\WebController\PlayerCreatorController;
+use App\Team\Infrastructure\WebController\TeamController;
+use App\Team\Infrastructure\WebController\TeamCreatorController;
+
 /** @var string $title*/
 /** @var string $content*/
+
+$teamsRoute = TeamController::PATH;
+$teamCreatorRoute = TeamCreatorController::PATH;
+$playerCreatorRoute = PlayerCreatorController::PATH;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +20,9 @@
 </head>
 <body>
 
-<a href="/team-creator">Team</a>
-<a href="/player-creator">Player</a>
+<a href="<?= htmlspecialchars($teamsRoute) ?>">Team Collection</a>
+<a href="<?= htmlspecialchars($teamCreatorRoute) ?>">Team Creator</a>
+<a href="<?= htmlspecialchars($playerCreatorRoute) ?>">Player Creator</a>
 
 <?= $content ?>
 
