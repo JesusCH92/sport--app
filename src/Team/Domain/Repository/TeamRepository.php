@@ -10,4 +10,6 @@ interface TeamRepository
     public function search(): Teams;
 
     public function save(Team $team): void;
+
+    public function findOrFail(string $teamUuid): Team;
 }

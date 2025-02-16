@@ -7,6 +7,7 @@ namespace App\Team\Infrastructure\Persistence;
 use App\Common\Infrastructure\DbConnector;
 use App\Team\Domain\Entity\Team;
 use App\Team\Domain\Entity\Teams;
+use App\Team\Domain\Exception\NotFoundTeam;
 use App\Team\Domain\Repository\TeamRepository;
 use DateTimeImmutable;
 use PDO;
@@ -58,5 +59,33 @@ SQL;
         $stmt->bindValue('created_at', $team->createdAt()->format('Y-m-d'));
 
         $stmt->execute();
+    }
+
+    public function findOrFail(string $teamUuid): Team
+    {
+        $pdo = $this->pdo();
+
+        $query = <<<SQL
+SELECT uuid, name, city, created_at FROM team WHERE uuid = :uuid LIMIT 1;
+SQL;
+
+        $stmt = $pdo->prepare($query);
+
+        $stmt->bindValue(':uuid', $teamUuid);
+
+        $stmt->execute();
+
+        $primitive = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$primitive) {
+            throw new NotFoundTeam($teamUuid);
+        }
+
+        return new Team(
+            $primitive['uuid'],
+            $primitive['name'],
+            $primitive['city'],
+            new DateTimeImmutable($primitive['created_at'])
+        );
     }
 }
