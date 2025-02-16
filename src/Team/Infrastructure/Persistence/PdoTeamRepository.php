@@ -40,4 +40,22 @@ SQL;
 
         return new Teams($collection);
     }
+
+    public function save(Team $team): void
+    {
+        $pdo = $this->pdo();
+
+        $query = <<<SQL
+INSERT INTO team (uuid, name, city, created_at) VALUES (:uuid, :name, :city, :created_at)
+SQL;
+
+        $stmt = $pdo->prepare($query);
+
+        $stmt->bindValue('uuid', $team->uuid());
+        $stmt->bindValue('name', $team->name());
+        $stmt->bindValue('city', $team->city());
+        $stmt->bindValue('created_at', $team->createdAt()->format('Y-m-d'));
+
+        $stmt->execute();
+    }
 }
