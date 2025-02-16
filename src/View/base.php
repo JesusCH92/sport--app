@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<a href="/team-creator">Team</a>
+
 <?= $content ?>
 
 </body>
