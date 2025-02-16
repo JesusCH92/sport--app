@@ -27,8 +27,8 @@ $updateRoute = PlayerUpdaterController::PATH . '?playerUuid=';
     <?php foreach ($players as $player): ?>
         <tr>
             <td><?= htmlspecialchars($player->uuid()) ?></td>
-            <td><?= htmlspecialchars($player->name()) ?></td>
-            <td><?= htmlspecialchars($player->number()) ?></td>
+            <td><?= htmlspecialchars($player->name()->value()) ?></td>
+            <td><?= htmlspecialchars($player->number()->value()) ?></td>
             <td>
                 <a href="<?= $updateRoute . htmlspecialchars($player->uuid()) ?>">Update</a>
                 <a href="/#">Delete</a>

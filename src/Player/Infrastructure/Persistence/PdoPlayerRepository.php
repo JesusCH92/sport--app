@@ -24,8 +24,8 @@ SQL;
         $stmt = $pdo->prepare($query);
 
         $stmt->bindValue('uuid', $player->uuid());
-        $stmt->bindValue('name', $player->name());
-        $stmt->bindValue('number', $player->number());
+        $stmt->bindValue('name', $player->name()->value());
+        $stmt->bindValue('number', $player->number()->value());
         $stmt->bindValue('team_uuid', $player->teamUuid());
         $stmt->bindValue('is_captain', (int)$player->isCaptain());
 

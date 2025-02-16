@@ -16,12 +16,12 @@ $updateRoute = PlayerUpdaterController::PATH . '?playerUuid=' . $player->uuid();
 <form action="<?= htmlspecialchars($updateRoute) ?>" method="POST">
     <div>
         <label for="name">Player Name:</label>
-        <input type="text" id="name" name="name" value="<?= htmlspecialchars($player->name()) ?>" required>
+        <input type="text" id="name" name="name" value="<?= htmlspecialchars($player->name()->value()) ?>" required>
     </div>
 
     <div>
         <label for="number">Player Number:</label>
-        <input type="number" id="number" name="number" value="<?= htmlspecialchars($player->number()) ?>" required>
+        <input type="number" id="number" name="number" value="<?= htmlspecialchars($player->number()->value()) ?>" required>
     </div>
 
     <div>

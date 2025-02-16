@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace App\Player\Domain\Entity;
 
+use App\Player\Domain\ValueObject\Name;
+use App\Player\Domain\ValueObject\Number;
 use Ramsey\Uuid\Uuid;
 
 final class Player
 {
     private string $uuid;
-    private string $name;
-    private int $number;
+    private Name $name;
+    private Number $number;
     private string $teamUuid;
     private bool $isCaptain;
 
     public function __construct(?string $uuid, string $name, int $number, string $teamUuid, bool $isCaptain = false)
     {
         $this->uuid = $uuid ?? Uuid::uuid4()->toString();
-        $this->name = $name;
-        $this->number = $number;
+        $this->name = new Name($name);
+        $this->number = new Number($number);
         $this->teamUuid = $teamUuid;
         $this->isCaptain = $isCaptain;
     }
@@ -28,12 +30,12 @@ final class Player
         return $this->uuid;
     }
 
-    public function name(): string
+    public function name(): Name
     {
         return $this->name;
     }
 
-    public function number(): int
+    public function number(): Number
     {
         return $this->number;
     }
@@ -50,8 +52,8 @@ final class Player
 
     public function modify(string $name, int $number, string $teamUuid, bool $isCaptain): void
     {
-        $this->name = $name;
-        $this->number = $number;
+        $this->name = new Name($name);
+        $this->number = new Number($number);
         $this->teamUuid = $teamUuid;
         $this->isCaptain = $isCaptain;
     }
