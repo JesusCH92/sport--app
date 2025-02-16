@@ -6,10 +6,6 @@ namespace App\Common\Infrastructure;
 
 abstract class WebController
 {
-    public function __construct(protected array $dc)
-    {
-    }
-
     protected function renderTemplate(string $pathView, array $vars = []): string
     {
         $pathToPhp = __DIR__ . $pathView;

@@ -7,7 +7,6 @@ namespace App\Team\Infrastructure\WebController;
 use App\Common\Infrastructure\WebController;
 use App\Team\ApplicationService\Dto\TeamCreatorRequest;
 use App\Team\ApplicationService\TeamCreator;
-use App\Team\Infrastructure\Persistence\PdoTeamRepository;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 final class TeamCreatorController extends WebController
 {
     public const string PATH = '/team-creator';
+
+    private TeamCreator $teamCreator;
+
+    public function __construct(TeamCreator $teamCreator)
+    {
+        $this->teamCreator = $teamCreator;
+    }
 
     public function __invoke(Request $request): Response
     {
@@ -25,8 +31,7 @@ final class TeamCreatorController extends WebController
                 new DateTimeImmutable()
             );
 
-            $service = $this->creatorService();
-            $service($teamCreatorRequest);
+            ($this->teamCreator)($teamCreatorRequest);
 
             return new Response('', Response::HTTP_FOUND, [
                 'Location' => TeamController::PATH
@@ -41,10 +46,5 @@ final class TeamCreatorController extends WebController
         $content = $this->renderTemplate('/../../View/team-creator/index.php');
 
         return new Response($this->renderBaseTemplate($content, 'Team Creator'), Response::HTTP_OK);
-    }
-
-    private function creatorService(): TeamCreator
-    {
-        return new TeamCreator(new PdoTeamRepository());
     }
 }

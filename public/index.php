@@ -15,6 +15,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$container = require __DIR__ . '/../config/services.php';
+
 $dc = [];
 
 $routes = [
@@ -39,11 +41,15 @@ $context->fromRequest($request);
 
 try {
     $attributes = $matcher->match($context->getPathInfo());
-    $ctrlName = $matcher->match($context->getPathInfo())['_controller'];
-    $ctrl = new $ctrlName($dc);
+    $ctrlName = $attributes['_controller'];
+
+    // Obtener el controlador desde el contenedor en lugar de instanciarlo manualmente
+    $ctrl = $container->get($ctrlName);
+
     $request->attributes->add($attributes);
-    if (isset($matcher->match($context->getPathInfo())['method'])) {
-        $response = $ctrl->{$matcher->match($context->getPathInfo())['method']}($request);
+
+    if (isset($attributes['method'])) {
+        $response = $ctrl->{$attributes['method']}($request);
     } else {
         $response = $ctrl($request);
     }
