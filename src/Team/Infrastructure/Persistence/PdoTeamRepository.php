@@ -54,8 +54,8 @@ SQL;
         $stmt = $pdo->prepare($query);
 
         $stmt->bindValue('uuid', $team->uuid());
-        $stmt->bindValue('name', $team->name());
-        $stmt->bindValue('city', $team->city());
+        $stmt->bindValue('name', $team->name()->value());
+        $stmt->bindValue('city', $team->city()->value);
         $stmt->bindValue('created_at', $team->createdAt()->format('Y-m-d'));
 
         $stmt->execute();

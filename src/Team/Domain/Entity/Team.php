@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace App\Team\Domain\Entity;
 
+use App\Team\Domain\ValueObject\City;
+use App\Team\Domain\ValueObject\Name;
 use DateTimeInterface;
 use Ramsey\Uuid\Uuid;
 
 final class Team
 {
     private string $uuid;
-    private string $name;
-    private string $city;
+    private Name $name;
+    private City $city;
     private DateTimeInterface $createdAt;
 
     public function __construct(?string $uuid, string $name, string $city, DateTimeInterface $createdAt)
     {
         $this->uuid = $uuid ?? Uuid::uuid4()->toString();
-        $this->name = $name;
-        $this->city = $city;
+        $this->name = new Name($name);
+        $this->city = City::fromString($city);
         $this->createdAt = $createdAt;
     }
 
@@ -27,12 +29,12 @@ final class Team
         return $this->uuid;
     }
 
-    public function name(): string
+    public function name(): Name
     {
         return $this->name;
     }
 
-    public function city(): string
+    public function city(): City
     {
         return $this->city;
     }

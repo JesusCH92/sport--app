@@ -23,8 +23,8 @@ use App\Team\Domain\Entity\Team;
     <?php foreach ($teams as $team): ?>
         <tr>
             <td><?= htmlspecialchars($team->uuid()) ?></td>
-            <td><?= htmlspecialchars($team->name()) ?></td>
-            <td><?= htmlspecialchars($team->city()) ?></td>
+            <td><?= htmlspecialchars($team->name()->value()) ?></td>
+            <td><?= htmlspecialchars($team->city()->value) ?></td>
             <td><?= htmlspecialchars($team->createdAt()->format('Y-m-d')) ?></td>
             <td>
                 <a href="/player?teamUuid=<?= urlencode($team->uuid()) ?>">

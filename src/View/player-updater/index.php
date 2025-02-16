@@ -30,7 +30,7 @@ $updateRoute = PlayerUpdaterController::PATH . '?playerUuid=' . $player->uuid();
             <?php foreach ($teams as $team): ?>
                 <option value="<?= htmlspecialchars($team->uuid()) ?>"
                     <?= $team->uuid() === $player->teamUuid() ? ' selected' : '' ?>>
-                    <?= htmlspecialchars($team->name()) ?>
+                    <?= htmlspecialchars($team->name()->value()) ?>
                 </option>
             <?php endforeach; ?>
         </select>

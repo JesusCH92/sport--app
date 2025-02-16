@@ -24,7 +24,9 @@ use App\Team\Domain\Entity\Team;
         <label for="team_uuid">Team:</label>
         <select id="team_uuid" name="team_uuid" required>
             <?php foreach ($teams as $team): ?>
-                <option value="<?= htmlspecialchars($team->uuid()) ?>"><?= htmlspecialchars($team->name()) ?></option>
+                <option value="<?= htmlspecialchars($team->uuid()) ?>">
+                    <?= htmlspecialchars($team->name()->value()) ?>
+                </option>
             <?php endforeach; ?>
         </select>
     </div>
