@@ -1,6 +1,7 @@
 <?php
 
 use App\Team\Infrastructure\WebController\TeamController;
+use App\Team\Infrastructure\WebController\TeamCreatorController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -15,6 +16,7 @@ $dc = [];
 
 $routes = [
     'team' => (new Route(TeamController::PATH, ['_controller' => TeamController::class]))->setMethods(['GET']),
+    'team_creator' => (new Route(TeamCreatorController::PATH, ['_controller' => TeamCreatorController::class]))->setMethods(['GET', 'POST']),
 ];
 
 $rc = new RouteCollection();
