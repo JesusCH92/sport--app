@@ -1,5 +1,8 @@
 <?php
 
+use App\Player\Infrastructure\WebController\PlayerController;
+use App\Player\Infrastructure\WebController\PlayerCreatorController;
+use App\Player\Infrastructure\WebController\PlayerUpdaterController;
 use App\Team\Infrastructure\WebController\TeamController;
 use App\Team\Infrastructure\WebController\TeamCreatorController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +20,9 @@ $dc = [];
 $routes = [
     'team' => (new Route(TeamController::PATH, ['_controller' => TeamController::class]))->setMethods(['GET']),
     'team_creator' => (new Route(TeamCreatorController::PATH, ['_controller' => TeamCreatorController::class]))->setMethods(['GET', 'POST']),
+    'player' => (new Route(PlayerController::PATH, ['_controller' => PlayerController::class]))->setMethods(['GET']),
+    'player_creator' => (new Route(PlayerCreatorController::PATH, ['_controller' => PlayerCreatorController::class]))->setMethods(['GET', 'POST']),
+    'player_updater' => (new Route(PlayerUpdaterController::PATH, ['_controller' => PlayerUpdaterController::class]))->setMethods(['GET', 'POST']),
 ];
 
 $rc = new RouteCollection();
