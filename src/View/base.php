@@ -12,6 +12,7 @@
 <body>
 
 <a href="/team-creator">Team</a>
+<a href="/player-creator">Player</a>
 
 <?= $content ?>
 
